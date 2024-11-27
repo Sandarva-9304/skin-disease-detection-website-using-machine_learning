@@ -10,10 +10,11 @@ import tensorflow_hub as hub
 
 # Initialize Flask app and enable CORS
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": os.getenv("FRONTEND_URL", "*")}})
 
 # Load the pre-trained model once when the app starts
-MODEL_PATH = 'model.h5'  # Update this path to where your saved model is
+MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
+UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")  # Update this path to where your saved model is
 model = tf_keras.models.load_model(
        (MODEL_PATH),
        custom_objects={'KerasLayer': hub.KerasLayer}
@@ -38,7 +39,7 @@ def predict():
 
     if file:
         # Save the uploaded image file temporarily
-        filepath = os.path.join('uploads', file.filename)
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
         file.save(filepath)
 
         # Preprocess the image and make a prediction
@@ -62,6 +63,6 @@ def predict():
 
 if __name__ == '__main__':
     # Ensure 'uploads' directory exists to save uploaded files
-    if not os.path.exists('uploads'):
-        os.makedirs('uploads')
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
     app.run(debug=True)
