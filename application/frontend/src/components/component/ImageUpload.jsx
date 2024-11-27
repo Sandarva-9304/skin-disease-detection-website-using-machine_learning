@@ -7,7 +7,7 @@ function ImageUpload({ onUploadComplete, clearDiagnosis }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null); // Ref to access the file input
-
+  const ML_SERVER_URL = "https://flask-ml-cei3.onrender.com";
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     clearDiagnosis();
@@ -29,15 +29,11 @@ function ImageUpload({ onUploadComplete, clearDiagnosis }) {
 
     try {
       setLoading(true);
-      const response = await axios.post(
-        "http://localhost:5000/predict",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(ML_SERVER_URL + "/predict", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       onUploadComplete(response.data);
       setLoading(false);
