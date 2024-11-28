@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "emailserver.js",
   "scripts": {
-    "start": "node emailserver.js"
+    "start": "node api/emailserver.js"
   },
   "dependencies": {
     "body-parser": "^1.20.3",
