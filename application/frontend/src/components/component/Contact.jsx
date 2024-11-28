@@ -5,6 +5,7 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import axios from "axios"; // Use Axios for API calls
 
+const EMAIL_SERVER_URL = "https://your-email-server-url.com";
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -50,7 +51,7 @@ function Contact() {
 
     // Send form data to backend for email sending
     axios
-      .post("http://localhost:5000/send-email", formData)
+      .post(`${EMAIL_SERVER_URL}/send-email`, formData)
       .then((response) => {
         setLoading(false);
         setSuccessMessage("Message sent successfully!");

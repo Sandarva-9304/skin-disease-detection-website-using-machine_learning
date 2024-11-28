@@ -29,7 +29,7 @@ function ImageUpload({ onUploadComplete, clearDiagnosis }) {
 
     try {
       setLoading(true);
-      const response = await axios.post(ML_SERVER_URL + "/predict", formData, {
+      const response = await axios.post(`${ML_SERVER_URL}/predict`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

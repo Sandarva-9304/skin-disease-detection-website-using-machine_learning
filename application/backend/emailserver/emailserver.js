@@ -1,13 +1,19 @@
+require("dotenv").config();
 const express = require("express");
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
-const PORT = 5000; // Server port
+
+// const PORT = process.env.PORT || 5000; // Server port
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: process.env.FRONTEND_URL, // Restrict to your frontend's URL
+  methods: ["POST"], // Only allow POST requests
+};
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // POST endpoint to send emails
@@ -23,23 +29,23 @@ app.post("/send-email", async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail", // Example: Gmail
       auth: {
-        user: "sandarvapodder09032004@gmail.com", // Replace with your Gmail address
-        pass: "lsgiyzdjstarwkdj", // Replace with your Gmail password or app password
+        user: process.env.EMAIL_USER, // Environment variable for email
+        pass: process.env.EMAIL_PASS, // Environment variable for password
       },
     });
 
     // Email options
     const mailOptions1 = {
-      from: `sandarvapodder09032004@gmail.com`, // Sender's email
+      from: process.env.EMAIL_USER, // Sender's email
       to: `${email}`, // Replace with your destination email
       subject: "Contact Form Response",
       text: `Thank you for contacting us!`,
     };
 
     const mailOptions2 = {
-      from: `${email}`, // Sender's email
-      to: `sandarvapodder09032004@gmail.com`, // Replace with your destination email
-      subject: "Contact Us",
+      from: process.env.EMAIL_USER, // Sender's email
+      to: process.env.EMAIL_USER, // Replace with your destination email
+      subject: "New Contact Form Submission",
       text: `Name:- ${name}\nEmail:- ${email}\n\n${message}`,
     };
 
@@ -54,7 +60,4 @@ app.post("/send-email", async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+module.exports = app; // Start the server
