@@ -17,7 +17,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // POST endpoint to send emails
-app.post("/send-email", async (req, res) => {
+app.get("/send-email", async (req, res) => {
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
