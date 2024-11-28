@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import axios from "axios"; // Use Axios for API calls
 
-const EMAIL_SERVER_URL = "https://your-email-server-url.com";
+const EMAIL_SERVER_URL = "https://emailserver-jet.vercel.app";
 function Contact() {
   const [formData, setFormData] = useState({
     name: "",
