@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "functions": {
-    "emailserver.js": {
-      "runtime": "nodejs18.x"
+  "name": "email-server",
+  "builds": [
+    {
+      "src": "api/emailserver.js",
+      "use": "@vercel/node"
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/send-email",
+      "dest": "/api/emailserver.js"
+    }
+  ]
 }
