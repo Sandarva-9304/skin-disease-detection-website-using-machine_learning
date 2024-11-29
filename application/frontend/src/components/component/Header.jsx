@@ -60,7 +60,7 @@ function Header() {
         <Button
           variant="secondary"
           size="sm"
-          className="md:hidden py-3"
+          className="md:hidden py-3 text-muted-foreground"
           onClick={toggleMenu}
         >
           {isMenuOpen ? (
@@ -85,7 +85,7 @@ function Header() {
           >
             <Link
               href="#imageupload"
-              className="text-sm font-medium border-b-2 pb-2 border-foreground px-2 hover:text-green-400"
+              className="text-sm font-medium border-b-2 pb-2 border-muted-foreground px-2 hover:text-green-400"
               onClick={() => setIsMenuOpen(false)} // Close menu on link click
               prefetch={false}
             >
@@ -93,7 +93,7 @@ function Header() {
             </Link>
             <Link
               href="#commondiseases"
-              className="text-sm font-medium border-b-2 pb-2 border-foreground px-2 hover:text-green-400"
+              className="text-sm font-medium border-b-2 pb-2 border-muted-foreground px-2 hover:text-green-400"
               onClick={() => setIsMenuOpen(false)} // Close menu on link click
               prefetch={false}
             >

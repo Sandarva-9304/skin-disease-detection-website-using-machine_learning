@@ -10,7 +10,7 @@ import tensorflow_hub as hub
 
 # Initialize Flask app and enable CORS
 app = Flask(__name__)
-cors = CORS(app, resources={r'/predict':{'origins' : os.getenv("FRONTEND_URL")}})
+CORS(app, resources={r"/predict": {"origins": "https://derma-diagnosis.vercel.app"}})
 
 # Load the pre-trained model once when the app starts
 MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
@@ -65,5 +65,6 @@ if __name__ == '__main__':
     # Ensure 'uploads' directory exists to save uploaded files
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    # port = int(os.getenv("PORT", 5000))
+    # app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(debug=True)

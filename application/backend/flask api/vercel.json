@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "ml-server",
+  "builds": [
+    {
+      "src": "app.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/predict",
+      "dest": "/app.py"
+    }
+  ]
+}
