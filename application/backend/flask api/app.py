@@ -12,7 +12,7 @@ import tensorflow_hub as hub
 app = Flask(__name__)
 # CORS(app, resources={r"/": {"origins": ""}}, supports_credentials=True)
 # CORS(app)
-CORS(app,origins=[os.getenv("FRONTEND_URL")])
+CORS(app,origins=["https://derma-diagnosis.vercel.app"])
 # Load the pre-trained model once when the app starts
 MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
 UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")  # Update this path to where your saved model is
