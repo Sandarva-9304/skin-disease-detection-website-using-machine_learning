@@ -32,6 +32,10 @@ def load_and_preprocess_image(image_path):
     return np.expand_dims(img_scaled, axis=0)  # Add a batch dimension: (1, 224, 224, 3)
 
 # Route to handle image uploads and prediction
+
+@app.route('/abc', methods=['GET'])
+def abc():
+    return jsonify({'message': 'Hello, World!'}), 200
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'file' not in request.files:
