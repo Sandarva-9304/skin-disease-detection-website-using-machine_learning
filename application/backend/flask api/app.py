@@ -12,7 +12,7 @@ import tensorflow_hub as hub
 app = Flask(__name__)
 # CORS(app, resources={r"/": {"origins": ""}}, supports_credentials=True)
 # CORS(app)
-CORS(app, resources={r"/predict": {"origins": "https://derma-diagnosis.vercel.app"}})
+CORS(app, resources={r"/predict": {"origins": "*"}})
 # CORS(app,origins=["https://derma-diagnosis.vercel.app"])
 
 # Load the pre-trained model once when the app starts
