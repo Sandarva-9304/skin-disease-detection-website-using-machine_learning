@@ -19,10 +19,21 @@ CORS(app)
 # Load the pre-trained model once when the app starts
 MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
 # UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")  # Update this path to where your saved model is
-model = tf_keras.models.load_model(
-       (MODEL_PATH),
-       custom_objects={'KerasLayer': hub.KerasLayer}
-)
+
+if not os.path.exists(MODEL_PATH):
+    print("❌ model.h5 not found!")
+else:
+    print("✅ model.h5 found!")
+
+# Try loading model
+try:
+    model = tf_keras.models.load_model(
+        MODEL_PATH,
+        custom_objects={'KerasLayer': hub.KerasLayer}
+    )
+    print("✅ Model loaded successfully")
+except Exception as e:
+    print("❌ Model loading failed:", e)
 
 # Define a function to preprocess the uploaded image
 def load_and_preprocess_image(file_bytes):
