@@ -9,6 +9,7 @@ function ImageUpload({ onUploadComplete, clearDiagnosis }) {
   const fileInputRef = useRef(null); // Ref to access the file input
   // const ML_SERVER_URL = process.env.NEXT_PUBLIC_ML_SERVER_URL;
   const ML_SERVER_URL = "https://flask-ml-uppq.onrender.com";
+  // const ML_SERVER_URL = "http://localhost:5000";
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
     clearDiagnosis();

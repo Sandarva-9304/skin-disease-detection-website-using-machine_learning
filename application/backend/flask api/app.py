@@ -18,15 +18,17 @@ CORS(app)
 
 # Load the pre-trained model once when the app starts
 MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
-UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")  # Update this path to where your saved model is
+# UPLOAD_FOLDER = os.getenv("UPLOAD_FOLDER", "uploads")  # Update this path to where your saved model is
 model = tf_keras.models.load_model(
        (MODEL_PATH),
        custom_objects={'KerasLayer': hub.KerasLayer}
 )
 
 # Define a function to preprocess the uploaded image
-def load_and_preprocess_image(image_path):
-    img = cv2.imread(image_path)  # Load the image
+def load_and_preprocess_image(file_bytes):
+    file_bytes = np.frombuffer(file_bytes, np.uint8)
+    img = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+    # img = cv2.imread(image_path)  # Load the image
     img_resized = cv2.resize(img, (224, 224))  # Resize to 224x224 as required by the model
     img_scaled = img_resized / 255.0  # Scale pixel values to [0, 1]
     return np.expand_dims(img_scaled, axis=0)  # Add a batch dimension: (1, 224, 224, 3)
@@ -47,11 +49,12 @@ def predict():
 
     if file:
         # Save the uploaded image file temporarily
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(filepath)
+        # filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        # file.save(filepath)
 
+        image_data = file.read()
         # Preprocess the image and make a prediction
-        img_for_prediction = load_and_preprocess_image(filepath)
+        img_for_prediction = load_and_preprocess_image(image_data)
         predicted_probabilities = model.predict(img_for_prediction)
 
         # Get the predicted class label
@@ -77,8 +80,8 @@ def predict():
 
 if __name__ == '__main__':
     # Ensure 'uploads' directory exists to save uploaded files
-    if not os.path.exists(UPLOAD_FOLDER):
-        os.makedirs(UPLOAD_FOLDER)
+    # if not os.path.exists(UPLOAD_FOLDER):
+    #     os.makedirs(UPLOAD_FOLDER)
     # port = int(os.getenv("PORT", 5000))
     # app.run(host="0.0.0.0", port=port, debug=False)
     app.run(debug=True)
