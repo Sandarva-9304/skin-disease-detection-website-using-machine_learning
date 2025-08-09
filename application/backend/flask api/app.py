@@ -10,11 +10,9 @@ import tensorflow_hub as hub
 
 # Initialize Flask app and enable CORS
 app = Flask(__name__)
-# CORS(app, resources={r"/": {"origins": ""}}, supports_credentials=True)
 # CORS(app)
 
-# CORS(app, resources={r"/predict": {"origins": "*"}})
-CORS(app, origins=[os.getenv("FRONTEND_URL")])
+CORS(app, resources={r"/*": {"origins": os.getenv("FRONTEND_URL", "http://localhost:3000")}})
 
 # Load the pre-trained model once when the app starts
 MODEL_PATH = os.getenv("MODEL_PATH", "model.h5")  # Default to "model.h5" if not set
