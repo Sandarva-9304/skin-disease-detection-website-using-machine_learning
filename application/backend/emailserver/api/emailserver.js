@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-// const PORT = process.env.PORT || 5000; // Server port
+const PORT = process.env.PORT || 5000; // Server port
 
 // Middleware
 const corsOptions = {
@@ -61,3 +61,8 @@ app.post("/send-email", async (req, res) => {
 });
 
 module.exports = app; // Start the server
+if (require.main === module) {
+  app.listen(() => {
+    console.log(`✅ Server running on http://localhost:${PORT}`);
+  });
+}

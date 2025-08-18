@@ -7,7 +7,8 @@ function ImageUpload({ onUploadComplete, clearDiagnosis }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const fileInputRef = useRef(null); // Ref to access the file input
-  const ML_SERVER_URL = process.env.PUBLICMLSERVERURL;
+  const ML_SERVER_URL =
+    "https://sandy9304-flaskapi.hf.space" || "http://localhost:5000"; // Use environment variable or default to localhost
   // const ML_SERVER_URL = "http://localhost:5000";
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
