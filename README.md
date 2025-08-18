@@ -71,7 +71,7 @@ application/
 ### 1. Clone the Repository
 
 ```sh
-git clone <your-repo-url>
+git clone https://github.com/Sandarva-9304/skin-disease-detection-website-using-machine_learning.git
 cd application
 ```
 
